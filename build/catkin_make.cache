@@ -1,0 +1,2 @@
+ball_chaser:my_robot
+-DCATKIN_DEVEL_PREFIX=/home/blacklist/Desktop/go-chase-it/devel -DCMAKE_INSTALL_PREFIX=/home/blacklist/Desktop/go-chase-it/install -G Unix Makefiles

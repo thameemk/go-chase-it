@@ -1,0 +1,8 @@
+prefix=/home/blacklist/Desktop/go-chase-it/devel
+
+Name: ball_chaser
+Description: Description of ball_chaser
+Version: 0.0.0
+Cflags: -I/home/blacklist/Desktop/go-chase-it/devel/include
+Libs: -L${prefix}/lib 
+Requires: 

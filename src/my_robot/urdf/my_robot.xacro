@@ -1,0 +1,387 @@
+<?xml version='1.0'?>
+
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find my_robot)/urdf/my_robot.gazebo" />
+  
+  <link name="robot_footprint"></link>
+  <joint name="robot_footprint_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="robot_footprint"/>
+    <child link="chassis_base" />
+  </joint>
+  <link name="chassis_base">
+    <pose>0 0 0.1 0 0 0</pose>
+    <inertial>
+      <mass value="10.0"/>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
+      <inertia
+          ixx="0.1" ixy="0"   ixz="0"
+                    iyy="0.1" iyz="0"
+                              izz="0.1"/>
+    </inertial>
+
+    <collision name="chassis_base_collision">
+      <origin xyz="0 0 0.1" rpy=" 0 0 0"/> 
+      <geometry>
+        <box size="0.4 0.3 0.2"/>
+      </geometry>
+    </collision>
+
+    <visual name="chassis_base_visual">
+      <origin xyz="0 0 0.1" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="0.4 0.3 0.2"/>
+      </geometry>
+  
+    </visual>
+  </link>
+
+  <link name="castor_block_front">
+    <inertial>
+      <mass value="2.5"/>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
+      <inertia
+          ixx="0.01" ixy="0"   ixz="0"
+                    iyy="0.01" iyz="0"
+                              izz="0.01"/>
+    </inertial>
+    <collision name="castor_block_front_collision">
+      <origin xyz="0 0 0" rpy=" 0 0 0"/> 
+      <geometry>
+        <box size="0.08 0.15 .1"/>
+      </geometry>
+    </collision>
+
+    <visual name="castor_block_front_visual">
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="0.08 0.15 .1"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="chassis_to_castor_block_front_joint" type="fixed">
+    <origin xyz="0.0 0.21 0.05" rpy="0.0 0.0 0.0"/>
+    <parent link="chassis_base"/>
+    <child link="castor_block_front"/>
+  </joint>
+
+  <link name="castor_block_back">
+    <inertial>
+      <mass value="2.5"/>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
+      <inertia
+          ixx="0.01" ixy="0"   ixz="0"
+                    iyy="0.01" iyz="0"
+                              izz="0.01"/>
+    </inertial>
+    <collision name="castor_block_back_collision">
+      <origin xyz="0 0 0" rpy=" 0 0 0"/> 
+      <geometry>
+        <box size="0.08 0.15 .1"/>
+      </geometry>
+    </collision>
+
+    <visual name="castor_block_back_visual">
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="0.08 0.15 .1"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="chassis_to_castor_block_back_joint" type="fixed">
+    <origin xyz="0.0 -0.21 0.05" rpy="0.0 0.0 0.0"/>
+    <parent link="chassis_base"/>
+    <child link="castor_block_back"/>
+  </joint>
+
+
+  <link name="chassis_torso">
+    <inertial>
+      <mass value="1.0"/>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
+      <inertia
+          ixx="0.1" ixy="0"   ixz="0"
+                    iyy="0.1" iyz="0"
+                              izz="0.1"/>
+    </inertial>
+    <collision name="chassis_torso_collision">
+      <origin xyz="0 0 0.0" rpy=" 0 0 0"/> 
+      <geometry>
+        <box size="0.33 0.22 0.25"/>
+      </geometry>
+    </collision>
+
+    <visual name="chassis_torso_visual">
+      <origin xyz="0 0 0.0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="0.33 0.22 0.25"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="torso_to_base" type="fixed">
+    <origin xyz="0.0 0.0 0.30" rpy="0.0 0.0 0.0"/>
+    <parent link="chassis_base"/>
+    <child link="chassis_torso"/>
+  </joint>
+
+  <link name="castor_front">
+    <inertial>
+      <mass value="0.05"/>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
+      <inertia
+          ixx="0.1" ixy="0"   ixz="0"
+                    iyy="0.1" iyz="0"
+                              izz="0.1"
+      />
+    </inertial>
+    <visual name="caster_front_visual">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </visual>
+
+    <collision name="caster_front_collision">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+  <joint name="castor_to_castor_block_front" type="fixed">
+    <origin xyz="0.0 0.0 -0.09" rpy="0.0 0.0 0.0"/>
+    <parent link="castor_block_front"/>
+    <child link="castor_front"/>
+  </joint>
+
+  <link name="castor_back">
+    <inertial>
+      <mass value="0.05"/>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
+      <inertia
+          ixx="0.1" ixy="0"   ixz="0"
+                    iyy="0.1" iyz="0"
+                              izz="0.1"
+      />
+    </inertial>
+    <visual name="caster_back_visual">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </visual>
+
+    <collision name="caster_back_collision">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+  <joint name="castor_to_castor_block_back" type="fixed">
+    <origin xyz="0.0 0.0 -0.09" rpy="0.0 0.0 0.0"/>
+    <parent link="castor_block_back"/>
+    <child link="castor_back"/>
+  </joint>
+
+
+  <link name="side_wheel_right">
+    <inertial>
+      <origin xyz="0 0 0" rpy="1.5707 0 1.5707"/>
+      <mass value="5.0"/>
+      <inertia ixx="0.01" ixy="0.0"  ixz="0.0" 
+                          iyy="0.01" iyz="0.0" 
+                                     izz="0.01"/>
+    </inertial>
+    <visual name="side_wheel_right_visual">
+      <origin xyz="0 0 0" rpy="1.5707 0 1.5707"/>
+      <geometry>
+        <cylinder radius="0.1" length="0.02"/>
+      </geometry>
+    </visual>
+    <collision name="side_wheel_right_collision">
+      <origin xyz="0 0 0" rpy="1.5707 0 1.5707"/>
+      <geometry>
+        <cylinder radius="0.1" length="0.02"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+
+  <link name="side_wheel_left">
+    <inertial>
+      <origin xyz="0 0 0" rpy="1.5707 0 1.5707"/>
+      <mass value="5.0"/>
+      <inertia ixx="0.01" ixy="0.0"  ixz="0.0" 
+                          iyy="0.01" iyz="0.0" 
+                                    izz="0.01"/>
+    </inertial>
+    <visual name="side_wheel_left_visual">
+      <origin xyz="0 0 0" rpy="1.5707 0 1.5707"/>
+      <geometry>
+        <cylinder radius="0.1" length="0.02"/>
+      </geometry>
+    </visual>
+
+    <collision name="side_wheel_left_collision">
+      <origin xyz="0 0 0" rpy="1.5707 0 1.5707"/>
+      <geometry>
+        <cylinder radius="0.1" length="0.02"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="right_wheel_hinge" type="continuous">
+    <origin xyz="0.22 0.0 0.01" rpy="0.0 0.0 0.0"/>
+    <parent link="chassis_base"/>
+    <child link="side_wheel_right"/>
+    <axis xyz="-1 0 0"/>
+    <limit effort="15000" velocity="2500"/>
+    <dynamics damping="1.0" friction="1.0"/>
+  </joint>
+
+  <joint name="left_wheel_hinge" type="continuous">
+    <origin xyz="-0.22 0.0 0.01" rpy="0.0 0.0 0.0"/>
+    <parent link="chassis_base"/>
+    <child link="side_wheel_left"/>
+    <axis xyz="-1 0 0"/>
+    <limit effort="15000" velocity="2500"/>
+    <dynamics damping="1.0" friction="1.0"/>
+  </joint>
+
+<link name="head">
+  <inertial>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <mass value="0.5"/>
+    <inertia
+          ixx="1e-3" ixy="0.0"  ixz="0.0"
+                     iyy="1e-3" iyz="0.0"
+                                izz="1e-3"/>  
+  </inertial>
+
+  <visual name="head_visual">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <geometry>
+      <box size="0.23 0.15 0.2"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <geometry>
+      <box size="0.23 0.15 0.2"/>
+    </geometry>
+  </collision>
+</link>
+
+<!-- This is a fixed joint for now but I want to use this joint to make the head swivel in the future -->
+
+<joint name="neck_joint" type="fixed">
+  <origin xyz="0.0 0.0 0.201" rpy="0.0 0.0 0.0"/>
+  <parent link="chassis_torso"/>
+  <child link="head"/>
+  <axis xyz="0 0 1"/>
+  <!--<limit effort="100" velocity="100"/>
+  <dynamics damping="1.0" friction="1.0"/>-->
+
+</joint>
+  
+<link name="camera">
+  <inertial>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <mass value="0.1"/>
+    <inertia ixx="1e-6" ixy="0.0" ixz="0.0" iyy="1e-6" iyz="0.0" izz="1e-6"/>
+  </inertial>
+
+  <visual name="camera_visual">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <geometry>
+      <box size="0.05 0.05 0.05"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <geometry>
+      <box size="0.05 0.05 0.05"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="camera_head_joint" type="fixed">
+  <origin xyz="0.0 0.08 0.0" rpy="0.0 0.393 1.5707"/>
+  <parent link="head"/>
+  <child link="camera"/>
+  <axis xyz="0 0 0.0"/>
+  <limit lower="0.0" upper="0.0" effort="0.0" velocity="0.0"/>
+</joint>
+
+<link name="hokuyo">
+  <inertial>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <mass value="1e-5"/>
+    <inertia ixx="1e-6" ixy="0.0" ixz="0.0" iyy="1e-6" iyz="0.0" izz="1e-6"/>
+  </inertial>
+
+  <visual name="hokuyo_visual">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <geometry>
+      <mesh filename="package://my_robot/meshes/hokuyo.dae"/>
+    </geometry>
+
+  </visual>
+
+  <collision>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <geometry>
+      <box size="0.1 0.1 0.1"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="hokuyo_joint" type="fixed">
+  <origin xyz="0.0 0.04 0.13" rpy="0.0 0.0 1.5707"/>
+  <parent link="head"/>
+  <child link="hokuyo"/>
+  <axis xyz="0.0 1 0.0"/>
+</joint>
+
+<gazebo reference="chassis_base">
+  <material>Gazebo/Red</material>
+</gazebo>
+
+<gazebo reference="side_wheel_left">
+  <material>Gazebo/Green</material>
+</gazebo>
+
+<gazebo reference="side_wheel_right">
+  <material>Gazebo/Green</material>
+</gazebo>
+
+<gazebo reference="castor_block_front">
+  <material>Gazebo/Yellow</material>
+</gazebo>
+
+<gazebo reference="castor">
+  <material>Gazebo/Chrome</material>
+</gazebo>
+
+<gazebo reference="chassis_torso">
+  <material>Gazebo/Green</material>
+</gazebo>
+
+<gazebo reference="head">
+  <material>Gazebo/Turquoise</material>
+</gazebo>
+
+
+
+chassis_torso
+</robot>
