@@ -39,7 +39,7 @@ void process_image_callback(const sensor_msgs::Image img)
   found_ball=false;
   for (int y = 0; y < img.height; y++) {
     for(int x=0; x < img.width; x++) {
-      if (img.data[y*img.step+x*bpp] == white_pixel) {
+      if (img.data[y*img.step+x*bpp] == white_pixel && img.data[(y+1)*img.step+(x+1)*bpp] == white_pixel && img.data[(y+2)*img.step+(x+2)*bpp] == white_pixel ) {
         found_ball=true;
         ball_x=x;ball_y=y;
         break;
@@ -76,6 +76,7 @@ void process_image_callback(const sensor_msgs::Image img)
     drive_robot(lin_x, ang_z);
   } else drive_robot(0, -1.5);
 }
+
 
 int main(int argc, char** argv)
 {
